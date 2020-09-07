@@ -27,5 +27,6 @@ public class Bot {
                         new HelpCommand(),
                         new PingCommand()
                 ).build();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> ShutdownHandler.handle(jda)));
     }
 }
