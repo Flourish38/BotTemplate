@@ -25,8 +25,7 @@ public class Bot {
                 .addEventListeners(
                         new StartupPresence(),
                         new HelpCommand(),
-                        new PingCommand(),
-                        new ShutdownCommand()
+                        new PingCommand()
                 ).build();
     }
 }

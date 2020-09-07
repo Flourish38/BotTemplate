@@ -10,7 +10,7 @@ public class ShutdownCommand extends Command {
 
     @Override
     void command(@NotNull GuildMessageReceivedEvent event) {
-        if(event.getAuthor().getIdLong() != BotConfig.BOT_ADMIN_ID) return;
+        // if(event.getAuthor().getIdLong() != BotConfig.BOT_ADMIN_ID) return; // Note: You probably want this if you're using a shutdown command. I'm using another bot to manage my bots, so I don't need one.
         event.getChannel().sendMessage("Shutting down...").queue();
         handle(event);
         event.getJDA().shutdown();
