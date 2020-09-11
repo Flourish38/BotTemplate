@@ -1,3 +1,5 @@
+package listeners;
+
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.ShutdownEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -22,13 +24,17 @@ public class ShutdownHandler extends ListenerAdapter {
             // YOUR CODE SHOULD PROBABLY END HERE
             int count = 0;
             try{
-                while(!shutdown){
+                while(!shutdown && count < 100){
                     count++;
                     Thread.sleep(10);
                 }
             }
             catch (InterruptedException e){
                 System.out.println("Shutdown interrupted after " + count + " tries.");
+                return;
+            }
+            if(!shutdown){
+                System.out.println("Shutdown process terminated after 1000 ms elapsed.");
                 return;
             }
             System.out.println("Shutdown properly after " + count + " tries.");
