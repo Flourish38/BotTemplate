@@ -16,29 +16,27 @@ public class ShutdownHandler extends ListenerAdapter {
      */
     public static void handle(JDA jda){
         System.out.println("Shutting down...");
-        if(!shutdown){
-            jda.shutdown();
-            // YOUR CODE HERE
+        jda.shutdown();
+        // YOUR CODE HERE
 
 
-            // YOUR CODE SHOULD PROBABLY END HERE
-            int count = 0;
-            try{
-                while(!shutdown && count < 100){
-                    count++;
-                    Thread.sleep(10);
-                }
+        // YOUR CODE SHOULD PROBABLY END HERE
+        int count = 0;
+        try{
+            while(!shutdown && count < 100){
+                count++;
+                Thread.sleep(10);
             }
-            catch (InterruptedException e){
-                System.out.println("Shutdown interrupted after " + count + " tries.");
-                return;
-            }
-            if(!shutdown){
-                System.out.println("Shutdown process terminated after 1000 ms elapsed.");
-                return;
-            }
-            System.out.println("Shutdown properly after " + count + " tries.");
         }
+        catch (InterruptedException e){
+            System.out.println("Shutdown interrupted after " + count + " tries.");
+            return;
+        }
+        if(!shutdown){
+            System.out.println("Shutdown process terminated after 1000 ms elapsed.");
+            return;
+        }
+        System.out.println("Shutdown properly after " + count + " tries.");
     }
 
     @Override
