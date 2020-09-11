@@ -24,6 +24,7 @@ public class Bot {
         JDA jda = JDABuilder.createDefault(new Scanner(file).nextLine())
                 .addEventListeners(
                         new StartupPresence(),
+                        new ShutdownHandler(),
                         new HelpCommand(),
                         new PingCommand()
                 ).build();
