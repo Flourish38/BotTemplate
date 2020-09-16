@@ -1,4 +1,4 @@
-package listeners;
+package managers;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.ShutdownEvent;

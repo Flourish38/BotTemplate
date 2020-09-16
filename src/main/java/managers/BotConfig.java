@@ -1,4 +1,4 @@
-package listeners;
+package managers;
 
 /**
  * Please add your own stuff to this! Sometimes, Guild IDs are particularly useful to store here.

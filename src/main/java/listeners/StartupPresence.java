@@ -1,5 +1,6 @@
 package listeners;
 
+import managers.BotConfig;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

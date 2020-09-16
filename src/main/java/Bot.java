@@ -1,4 +1,5 @@
 import listeners.*;
+import managers.ShutdownHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
@@ -25,7 +26,6 @@ public class Bot {
                 .addEventListeners(
                         new StartupPresence(),
                         new ShutdownHandler(),
-                        new ShutdownCommand(),
                         new HelpCommand(),
                         new PingCommand()
                 ).build();
