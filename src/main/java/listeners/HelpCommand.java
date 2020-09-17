@@ -16,7 +16,7 @@ public class HelpCommand extends Command {
                 "help",
                 "ping"
         };
-        message = "List of commands:\n" + BotConfig.PREFIX + String.join("\n" + BotConfig.PREFIX, commands);
+        message = "List of commands:\n" + BotConfig.get("prefix") + String.join("\n" + BotConfig.get("prefix"), commands);
     }
 
     @Override

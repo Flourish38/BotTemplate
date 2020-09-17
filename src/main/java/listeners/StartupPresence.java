@@ -9,6 +9,6 @@ import org.jetbrains.annotations.NotNull;
 public class StartupPresence extends ListenerAdapter {
     @Override
     public void onReady(@NotNull ReadyEvent event) {
-        event.getJDA().getPresence().setActivity(Activity.playing("\"" + BotConfig.PREFIX + "help\""));
+        event.getJDA().getPresence().setActivity(Activity.playing("\"" + BotConfig.get("prefix") + "help\""));
     }
 }

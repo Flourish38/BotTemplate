@@ -1,4 +1,5 @@
 import listeners.*;
+import managers.BotConfig;
 import managers.ShutdownHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -10,25 +11,22 @@ import java.util.Scanner;
 
 public class Bot {
 
-    public static void main(String[] args) throws IOException, LoginException {
-        File file = new File("token.txt");
-        if(!file.exists()){
-            System.out.println("A new file \"token.txt\" has been created. Put the OAuth token of the bot in that file.");
-            System.out.println(file.createNewFile());
+    public static void main(String[] args) throws LoginException {
+        BotConfig.setKeys(new String[]{
+                "token",
+                "prefix: !"
+        });
+        if(!BotConfig.init())
             return;
-        }
-        Scanner scanner = new Scanner(file);
-        if(!scanner.hasNext()){
-            System.out.println("Put the OAuth token of the bot into \"token.txt\"");
-            return;
-        }
-        JDA jda = JDABuilder.createDefault(new Scanner(file).nextLine())
-                .addEventListeners(
+
+        JDA jda = JDABuilder.createDefault(BotConfig.get("token"))
+                .addEventListeners( // TODO: Put all of your commands here
                         new StartupPresence(),
                         new ShutdownHandler(),
                         new HelpCommand(),
                         new PingCommand()
                 ).build();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> ShutdownHandler.handle(jda)));
+
     }
 }

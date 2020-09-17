@@ -33,7 +33,7 @@ public abstract class CommandListener extends ListenerAdapter {
         for(String command : commands)
         {
             if((raw.startsWith(mention + " " + command)) // ping as prefix
-                    || raw.startsWith(BotConfig.PREFIX + command)) // msg starts with prefix
+                    || raw.startsWith(BotConfig.get("prefix") + command)) // msg starts with prefix
             {
                 command(event, command);
                 break;
