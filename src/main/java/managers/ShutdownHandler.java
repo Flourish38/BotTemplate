@@ -21,19 +21,28 @@ public class ShutdownHandler extends ListenerAdapter {
 
 
         // YOUR CODE SHOULD PROBABLY END HERE
+
+        // NOTE: Code below this point is very sensitive to changes, and if you aren't careful, your bot will hang
+        // indefinitely when you try to shut it down. I have tested this part rigorously, it probably works good enough
+        // for your use case without any changes. If you have a
         int count = 0;
         try{
+            // I set this to time out after 1000ms (100*10ms). From my testing, the slowest it has ever shutdown properly
+            // was 120ms. I set it this high because I could see having a ping of over 300ms.
             while(!shutdown && count < 100){
                 count++;
+                // I picked this because it had to be something, and this seems to be about the right amount of time to wait.
+                // plus, nice round number.
                 Thread.sleep(10);
             }
         }
         catch (InterruptedException e){
+            // I have never seen this happen, but it shouldn't cause much of a problem anyways.
             System.out.println("Shutdown interrupted after " + count + " tries.");
             return;
         }
         if(!shutdown){
-            System.out.println("Shutdown process terminated after 1000 ms elapsed.");
+            System.out.println("Shutdown process terminated after 1000ms elapsed.");
             return;
         }
         System.out.println("Shutdown properly after " + count + " tries.");
