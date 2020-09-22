@@ -5,9 +5,12 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+/**
+ * This is your bread and butter right here. See PingCommand.java as an example of this being used.
+ */
 public abstract class Command extends CommandListener {
-    public Command(String command, String... commands) {
-        super(command, commands);
+    public Command(String command, String... aliases) {
+        super(command, aliases);
     }
 
     @Override

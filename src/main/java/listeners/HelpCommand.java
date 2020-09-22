@@ -12,6 +12,8 @@ public class HelpCommand extends Command {
 
         // TODO: Put a full list of commands here
 
+        // For this, it's recommended to use an alias of the command that explains what it does.
+        // (e.g., use "nickname" instead of "nick")
         String[] commands = new String[]{
                 "help",
                 "ping"

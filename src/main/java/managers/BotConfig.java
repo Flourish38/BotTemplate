@@ -32,6 +32,8 @@ public abstract class BotConfig {
             e.printStackTrace();
             return false;
         }
+
+        // reads config.txt and puts entries into config
         config = new HashMap<>();
         Set<String> emptyConfigValues = new HashSet<>();
         scanner.useDelimiter("\n");
@@ -41,11 +43,12 @@ public abstract class BotConfig {
             configLine = configLine.replaceFirst("\\s*:\\s*", ":");
             int splitIndex = configLine.indexOf(':');
             String key = configLine.substring(0, splitIndex);
-            //
+            // this is only true if there is no value assigned to this config entry
             if(splitIndex >= configLine.length() - 1){
                 emptyConfigValues.add(key);
             }
-            String value = configLine.substring(splitIndex + 1);
+            String value = configLine.substring(splitIndex + 1); // +1 to avoid including the :
+            // putIfAbsent used in case duplicates somehow end up in config.txt. It will always use the first one.
             config.putIfAbsent(key, value);
         });
 
@@ -55,9 +58,11 @@ public abstract class BotConfig {
             System.out.println('"' + key + "\" has no value in config.txt.");
         }
 
-        // doesn't init if it doesn't have to
+        // doesn't construct fw if it doesn't have to
         FileWriter fw = null;
+
         // Checks to see if every entry in requiredKeys is represented in config.txt, otherwise config.txt is invalid.
+
         for(String key : requiredKeys){
             // the key.split()[0] here just allows requiredKeys to also be used to assign default values to config entries.
             if(!config.containsKey(key.split("\\s*:\\s*")[0])){
@@ -81,6 +86,7 @@ public abstract class BotConfig {
                 System.out.println("adding config value \"" + key + '"');
             }
         }
+
         if(fw != null) {
             try {
                 fw.flush();

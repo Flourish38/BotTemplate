@@ -18,8 +18,10 @@ import java.util.stream.Stream;
 public abstract class CommandListener extends ListenerAdapter {
     protected final List<String> commands;
 
-    public CommandListener(String command, String... commands){
-        this.commands = Stream.concat(Stream.of(command), Arrays.stream(commands))
+    // This parameter setup requires at least one name for the command and has nice compile-time enforcing.
+    public CommandListener(String command, String... aliases){
+        // This sorts the commands so that you always check the longest commands first to avoid "!nickname" being called as "!nick name"
+        this.commands = Stream.concat(Stream.of(command), Arrays.stream(aliases))
                 .sorted(Comparator.comparingInt(String::length).reversed())
                 .collect(Collectors.toList());
     }
@@ -28,12 +30,15 @@ public abstract class CommandListener extends ListenerAdapter {
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
 
+        // This method just calls command() once if the message is calling the command.
+        // "Calling the command" is seen as using either the prefix or mentioning the bot directly followed by an alias of the command.
+
         String raw = event.getMessage().getContentRaw();
-        String mention =  "<@!" + event.getJDA().getSelfUser().getId() + ">"; // bro I stg why did discord change how they store pings internally AAAAA JDA hasn't updated to match it so this is life ig
+        String mention =  "<@!" + event.getJDA().getSelfUser().getId() + ">"; // event.getJDA().getSelfUser().getAsMention() does not work because it does not include the ! in <@! at time of writing
         for(String command : commands)
         {
-            if((raw.startsWith(mention + " " + command)) // ping as prefix
-                    || raw.startsWith(BotConfig.get("prefix") + command)) // msg starts with prefix
+            if((raw.startsWith(mention + " " + command))
+                    || raw.startsWith(BotConfig.get("prefix") + command))
             {
                 command(event, command);
                 break;
